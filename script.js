@@ -5,6 +5,7 @@ let multiply = (num1, num2) => num1 * num2;
 let divide = (num1, num2) => num1 / num2;
 
 // Operation variables
+let lastKeyType = 0; // Key type, 1 = num, 2 = operator, 3 = result
 let expression = '', result = null;
 
 // Update display
@@ -29,8 +30,28 @@ let operate = (op, num1, num2) => {
 const buttons = document.querySelectorAll(`.keys`);
 buttons.forEach(button => {
     button.addEventListener('click', () => {
-        if (expression !== '') expression += ' ';
-        expression += button.getAttribute('data-key');
-        update();
+        const key = button.getAttribute('data-key');
+        if (key === 'C') { 
+            expression = '';
+            result = null;
+        }
+        else if (key === '=') {
+            
+        }
+        else 
+        {
+            const type = button.getAttribute('data-type');
+            if (expression === '') {
+                if (type === '2') expression += '0 ';
+                expression += key;
+            } 
+            else {
+                // Add space for readability
+                if (type === 2 || lastKeyType !== type) expression += ' ';
+                expression += key;
+            }
+            lastKeyType = type;
+            update();
+        }
     });
 });
