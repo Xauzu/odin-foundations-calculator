@@ -1,10 +1,27 @@
 body, .keypad {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+html {
+    height: 100%;
 }
 
 .display, .cal, .left, .right {
     display: flex;
     flex-direction: column;
+}
+
+#expression, #result {
+    display: flex;
+    padding: 0px 5px;
+    min-height: 18px;
+}
+
+#result {
+    flex-direction: row-reverse;
 }
 
 [class^="leftRow"] {
@@ -20,4 +37,12 @@ body, .keypad {
 .keys {
     width: 50px;
     height: 50px;
+}
+
+.longWidth {
+    width: 100px;
+}
+
+.longHeight {
+    height: 100px;
 }
