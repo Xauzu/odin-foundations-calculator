@@ -25,3 +25,12 @@ let operate = (op, num1, num2) => {
     if (op === '*') return multiply(num1, num2);
     if (op === '/') return divide(num1, num2);
 }
+
+const buttons = document.querySelectorAll(`.keys`);
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        if (expression !== '') expression += ' ';
+        expression += button.getAttribute('data-key');
+        update();
+    });
+});
