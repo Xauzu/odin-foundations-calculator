@@ -29,7 +29,6 @@ let operate = (op, num1, num2) => {
 // 5 + 2
 let calculate = () => {
     const steps = expression.split(' ');
-    console.table(steps);
     if (lastKeyType === '2') result = 'ERROR: Ending in operator'; // Ending in operator
     else {
         let current = steps[0];
@@ -77,7 +76,16 @@ buttons.forEach(button => {
                 }
                 // Add space for readability
                 else if (type === '2' || lastKeyType !== type) expression += ' ';
-                expression += key;
+
+                if (key === '.') {
+                    // Detect multiple '.'
+                    const exp = expression.split(' ');
+                    let num = exp[exp.length - 1];
+                    if (!num.includes('.'))
+                        expression += key;
+                }
+                else 
+                    expression += key;
             }
             lastKeyType = type;
             update();
