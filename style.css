@@ -1,0 +1,23 @@
+body, .keypad {
+    display: flex;
+}
+
+.display, .cal, .left, .right {
+    display: flex;
+    flex-direction: column;
+}
+
+[class^="leftRow"] {
+    display: flex;
+    flex-direction: row;
+}
+
+[class^="rightRow"] {
+    display: flex;
+    flex-direction: row;
+}
+
+.keys {
+    width: 50px;
+    height: 50px;
+}
