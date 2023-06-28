@@ -20,6 +20,7 @@ let update = () => {
 
 // Operate based on selected operators
 let operate = (op, num1, num2) => {
+    console.log(num1 + " " + op + " " + num2)
     if (op === '+') return add(num1, num2);
     if (op === '-') return subtract(num1, num2);
     if (op === '*') return multiply(num1, num2);
@@ -44,11 +45,11 @@ let calculate = () => {
             current = operate(op, current, num);
             
             index += 2;
+
         }
 
         result = current;
     }
-    update();
 }
 
 const buttons = document.querySelectorAll(`.keys`);
@@ -58,8 +59,15 @@ buttons.forEach(button => {
         if (key === 'C') { 
             expression = '';
             result = null;
-            
-            update();
+        }
+        else if (key === 'X') {
+            if (expression.length > 0) {
+                expression = expression.slice(0, expression.length - 1);
+                if (expression.charAt(expression.length - 1) === ' ') expression = expression.slice(0, expression.length - 1);
+
+                // Reset lastKeyType
+                if (!isNaN(parseInt(expression.charAt(expression.length - 1)))) lastKeyType = 1;
+            }
         }
         else if (key === '=') calculate();
         else 
@@ -88,7 +96,7 @@ buttons.forEach(button => {
                     expression += key;
             }
             lastKeyType = type;
-            update();
         }
+        update();
     });
 });
