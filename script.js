@@ -10,7 +10,7 @@ let expression = '', result = null;
 // Update display
 let update = () => {
     const expressionDisplay = document.querySelector('#expression');
-    expressionDisplay.textContent = displayResult;
+    expressionDisplay.textContent = expression;
 
     if (result) {
         const resultDisplay = document.querySelector('#result');
