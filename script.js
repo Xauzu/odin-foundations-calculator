@@ -5,13 +5,23 @@ let multiply = (num1, num2) => num1 * num2;
 let divide = (num1, num2) => num1 / num2;
 
 // Operation variables
-let aNum = 0;
-let bNum = 0;
-let operator = "";
+let expression = '', result = null;
 
+// Update display
+let update = () => {
+    const expressionDisplay = document.querySelector('#expression');
+    expressionDisplay.textContent = displayResult;
+
+    if (result) {
+        const resultDisplay = document.querySelector('#result');
+        resultDisplay.textContent = result;
+    }
+}
+
+// Operate based on selected operators
 let operate = (op, num1, num2) => {
-    if (op === "+") return add(num1, num2);
-    if (op === "-") return subtract(num1, num2);
-    if (op === "*") return multiply(num1, num2);
-    if (op === "/") return divide(num1, num2);
+    if (op === '+') return add(num1, num2);
+    if (op === '-') return subtract(num1, num2);
+    if (op === '*') return multiply(num1, num2);
+    if (op === '/') return divide(num1, num2);
 }
