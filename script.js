@@ -44,8 +44,8 @@ let calculate = () => {
         }
 
         result = current;
-        update();
     }
+    update();
 }
 
 const buttons = document.querySelectorAll(`.keys`);
