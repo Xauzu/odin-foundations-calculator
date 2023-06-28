@@ -30,13 +30,18 @@ let operate = (op, num1, num2) => {
 let calculate = () => {
     const steps = expression.split(' ');
     console.table(steps);
-    if (lastKeyType === '2') result = 'ERROR'; // Ending in operator
+    if (lastKeyType === '2') result = 'ERROR: Ending in operator'; // Ending in operator
     else {
         let current = steps[0];
         let index = 1;
         while (index < steps.length) {
             let op = steps[index];
             let num = steps[index + 1];
+            
+            if (op === '/' && num === 0) {
+                result = 'ERROR: Division by 0';
+            }
+
             current = operate(op, current, num);
             
             index += 2;
