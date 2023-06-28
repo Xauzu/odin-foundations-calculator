@@ -27,6 +27,11 @@ let operate = (op, num1, num2) => {
     if (op === '/') return divide(num1, num2);
 }
 
+let calculate = () => {
+    const steps = expression.split(' ');
+    console.log(steps);
+}
+
 const buttons = document.querySelectorAll(`.keys`);
 buttons.forEach(button => {
     button.addEventListener('click', () => {
@@ -35,9 +40,7 @@ buttons.forEach(button => {
             expression = '';
             result = null;
         }
-        else if (key === '=') {
-            
-        }
+        else if (key === '=') calculate();
         else 
         {
             const type = button.getAttribute('data-type');
