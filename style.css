@@ -18,6 +18,7 @@ html {
     display: flex;
     padding: 0px 5px;
     min-height: 18px;
+    margin-left: 50px;
 }
 
 #result {
@@ -45,4 +46,8 @@ html {
 
 .longHeight {
     height: 100px;
+}
+
+.extra {
+    margin-bottom: 200px;
 }
