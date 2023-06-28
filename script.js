@@ -13,10 +13,9 @@ let update = () => {
     const expressionDisplay = document.querySelector('#expression');
     expressionDisplay.textContent = expression;
 
-    if (result) {
-        const resultDisplay = document.querySelector('#result');
-        resultDisplay.textContent = result;
-    }
+    const resultDisplay = document.querySelector('#result');
+    if (result) resultDisplay.textContent = result;
+    else resultDisplay.textContent = '';
 }
 
 // Operate based on selected operators
