@@ -52,51 +52,57 @@ let calculate = () => {
     }
 }
 
+let buildExpression = (key, type) => {
+    if (key === 'C') { 
+        expression = '';
+        result = null;
+    }
+    else if (key === 'X') {
+        if (expression.length > 0) {
+            expression = expression.slice(0, expression.length - 1);
+            if (expression.charAt(expression.length - 1) === ' ') {
+                expression = expression.slice(0, expression.length - 1);
+            }
+
+            // Reset lastKeyType
+            if (!isNaN(parseInt(expression.charAt(expression.length - 1)))) lastKeyType = '1';
+            else lastKeyType = '2';
+        }
+    }
+    else if (key === '=') calculate();
+    else 
+    {
+        if (expression === '') {
+            if (type === '2') expression += '0 ';
+            expression += key;
+        } 
+        else {
+            if (type === '2' && lastKeyType === type) {
+                // Remove last operator and to allow swapping to new operator
+                expression = expression.slice(0, expression.length - 1);
+            }
+            // Add space for readability
+            else if (type === '2' || lastKeyType !== type) expression += ' ';
+
+            if (key === '.') {
+                // Detect multiple '.'
+                const exp = expression.split(' ');
+                let num = exp[exp.length - 1];
+                if (!num.includes('.'))
+                    expression += key;
+            }
+            else 
+                expression += key;
+        }
+        lastKeyType = type;
+    }
+    update();
+}
+
 const buttons = document.querySelectorAll(`.keys`);
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         const key = button.getAttribute('data-key');
-        if (key === 'C') { 
-            expression = '';
-            result = null;
-        }
-        else if (key === 'X') {
-            if (expression.length > 0) {
-                expression = expression.slice(0, expression.length - 1);
-                if (expression.charAt(expression.length - 1) === ' ') expression = expression.slice(0, expression.length - 1);
-
-                // Reset lastKeyType
-                if (!isNaN(parseInt(expression.charAt(expression.length - 1)))) lastKeyType = 1;
-            }
-        }
-        else if (key === '=') calculate();
-        else 
-        {
-            const type = button.getAttribute('data-type');
-            if (expression === '') {
-                if (type === '2') expression += '0 ';
-                expression += key;
-            } 
-            else {
-                if (type === '2' && lastKeyType === type) {
-                    // Remove last operator and to allow swapping to new operator
-                    expression = expression.slice(0, expression.length - 1);
-                }
-                // Add space for readability
-                else if (type === '2' || lastKeyType !== type) expression += ' ';
-
-                if (key === '.') {
-                    // Detect multiple '.'
-                    const exp = expression.split(' ');
-                    let num = exp[exp.length - 1];
-                    if (!num.includes('.'))
-                        expression += key;
-                }
-                else 
-                    expression += key;
-            }
-            lastKeyType = type;
-        }
-        update();
+        buildExpression(key, button.getAttribute('data-type'));
     });
 });
