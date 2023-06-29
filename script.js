@@ -40,6 +40,7 @@ let calculate = () => {
             
             if (op === '/' && num === 0) {
                 result = 'ERROR: Division by 0';
+                break;
             }
 
             current = operate(op, current, num);
@@ -53,11 +54,12 @@ let calculate = () => {
 }
 
 let buildExpression = (key, type) => {
-    if (key === 'C') { 
+    //console.log("type: [" + type + "]");
+    if (key === 'Delete') { 
         expression = '';
         result = null;
     }
-    else if (key === 'X') {
+    else if (key === 'Backspace') {
         if (expression.length > 0) {
             expression = expression.slice(0, expression.length - 1);
             if (expression.charAt(expression.length - 1) === ' ') {
@@ -69,8 +71,8 @@ let buildExpression = (key, type) => {
             else lastKeyType = '2';
         }
     }
-    else if (key === '=') calculate();
-    else 
+    else if (key === 'Enter') calculate();
+    else if (type > 0)
     {
         if (expression === '') {
             if (type === '2') expression += '0 ';
@@ -103,6 +105,21 @@ const buttons = document.querySelectorAll(`.keys`);
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         const key = button.getAttribute('data-key');
-        buildExpression(key, button.getAttribute('data-type'));
+        const type = button.getAttribute('data-type');
+        buildExpression(key, type);
     });
+});
+
+
+document.addEventListener('keydown', (e) => {
+    const key = e.key;
+    let type = '0';
+
+    const operator = ['+', '-', '*', '/'];
+    if (!isNaN(parseInt(key)) || key === '.') type = '1';
+    operator.forEach(op => {
+        if (key.includes(op)) type = '2';
+    });
+
+    buildExpression(key, type);
 });
