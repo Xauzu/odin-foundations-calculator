@@ -37,9 +37,10 @@ let calculate = () => {
         while (index < steps.length) {
             let op = steps[index];
             let num = steps[index + 1];
-            
-            if (op === '/' && num === 0) {
-                result = 'ERROR: Division by 0';
+
+            if (op === '/' && +num === 0) {
+                console.log('div by 0');
+                current = 'ERROR: Division by 0';
                 break;
             }
 
@@ -48,7 +49,6 @@ let calculate = () => {
             index += 2;
 
         }
-
         result = current;
     }
 }
